@@ -1,9 +1,8 @@
-using Simplify.Scheduler.Job.Attributes;
-using Simplify.Scheduler.Job.Interfaces;
+using Simplify.Scheduler.Job.Test.Models;
 
 namespace Simplify.Scheduler.Job.Test.Interfaces;
 
-[JobService("MyLoggerService:Cron")]
+[JobService(typeof(MyLogger))]
 public interface IMyLoggerService : IJobService
 {
 

@@ -1,4 +1,3 @@
-using System;
 using Quartz;
 
 namespace Simplify.Scheduler.Job.Interfaces

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Simplify.Scheduler.Job.Interfaces
+namespace Simplify.Scheduler.Job
 {
     /// <summary>
     /// Implementation interface for Simplify.Scheduler.Job.
@@ -8,7 +8,6 @@ namespace Simplify.Scheduler.Job.Interfaces
     /// <remarks>
     /// Need to inherit in your service interface.
     /// </remarks>
-    /// <author>Fábio Barbosa</author>
     public interface IJobService
     {
         /// <summary>

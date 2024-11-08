@@ -20,14 +20,17 @@ namespace Simplify.Scheduler.Job.Services
 
         public async Task Execute(IJobExecutionContext context)
         {
-            using var scope = _serviceProvider.CreateScope();
-            if (scope.ServiceProvider.GetService<T>() is T jobService)
+            using (var scope = _serviceProvider.CreateScope())
             {
-                await jobService.ExecuteJobAsync();
-                _logger.LogInformation("Job '{0}' executed at {1}!", context.JobDetail.Key.Name, DateTime.Now);
+
+                if (scope.ServiceProvider.GetService<T>() is T jobService)
+                {
+                    await jobService.ExecuteJobAsync();
+                    _logger.LogInformation("Job '{0}' executed at {1}!", context.JobDetail.Key.Name, DateTime.Now);
+                }
+                else
+                    _logger.LogError("JobService '{0}' not found!", nameof(T));
             }
-            else
-                _logger.LogError("JobService '{0}' not found!", nameof(T));
         }
     }
 }

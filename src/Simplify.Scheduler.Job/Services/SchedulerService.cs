@@ -3,7 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Spi;
-using Simplify.Scheduler.Job.Attributes;
 using Simplify.Scheduler.Job.Extensions;
 using Simplify.Scheduler.Job.Interfaces;
 
@@ -29,17 +28,19 @@ namespace Simplify.Scheduler.Job.Services
             {
                 if (job.GetJobTypeAttribute() is JobServiceAttribute jobAttr)
                 {
-                    if (_configuration[jobAttr?.CronJobSchedule] is string cron)
-                    {
-                        var jobService = job.GetJobDetail();
-                        var trigger = TriggerBuilder.Create()
-                            .StartNow()
-                            .WithCronSchedule(cron)
-                            .Build();
-                        _scheduler.ScheduleJob(jobService, trigger);
-                    }
+                    var options = _configuration
+                        .GetSection(jobAttr.TypeOptions.Name)
+                        .Get(jobAttr.TypeOptions) as JobOptions;
+                    var jobService = job.GetJobDetail();
+                    var trigger = TriggerBuilder.Create()
+                        .StartNow()
+                        .WithCronSchedule(options.CronExpression)
+                        .Build();
+
+                    _scheduler.ScheduleJob(jobService, trigger);
                 }
             }
+
             _scheduler.Start();
         }
     }

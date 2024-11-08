@@ -1,6 +1,6 @@
 using System;
 
-namespace Simplify.Scheduler.Job.Attributes
+namespace Simplify.Scheduler.Job
 {
     /// <summary>
     /// Attribute to configure the cron expression.
@@ -9,11 +9,10 @@ namespace Simplify.Scheduler.Job.Attributes
     /// Use cron expression to execute the 'IJobService.ExecuteJobAsync' method.
     /// </remarks>
     /// <param name="cronJobSchedule">Cron Expression</param>
-    /// <author>Fábio Barbosa</author>
     [AttributeUsage(AttributeTargets.Interface, AllowMultiple = true)]
     public class JobServiceAttribute : Attribute
     {
-        internal readonly string CronJobSchedule;
+        internal readonly Type TypeOptions;
 
         /// <summary>
         /// Attribute to configure the cron expression.
@@ -21,8 +20,8 @@ namespace Simplify.Scheduler.Job.Attributes
         /// <remarks>
         /// Use cron expression to execute the 'IJobService.ExecuteJobAsync' method.
         /// </remarks>
-        /// <param name="cronJobSchedule">Cron Expression</param>
-        public JobServiceAttribute(string cronJobSchedule)
-            => CronJobSchedule = cronJobSchedule;
+        /// <param name="typeOptions"></param>
+        public JobServiceAttribute(Type typeOptions)
+            => TypeOptions = typeOptions;
     }
 }
