@@ -10,7 +10,7 @@ namespace Simplify.Scheduler.Job.Extensions
             var job = jobType.GetJobTypeInterface();
             return JobBuilder
                 .Create(job)
-                .WithIdentity(job.Name)
+                .WithIdentity(jobType.Name)
                 .Build();
         }
     }

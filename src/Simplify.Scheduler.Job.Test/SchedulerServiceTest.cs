@@ -18,7 +18,8 @@ public class SchedulerServiceTest : IClassFixture<InjectionFixture>
     public void Test1()
     {
         var assembly = Assembly.GetAssembly(typeof(SchedulerServiceTest));
-        _injection.ServiceCollection.AddTransient(typeof(IMyLoggerService), typeof(MyLoggerService));
+        _injection.ServiceCollection.AddTransient(typeof(IMyFirstService), typeof(MyFirstService));
+        _injection.ServiceCollection.AddTransient(typeof(IMySecondService), typeof(MySecondService));
         _injection.ServiceCollection.AddSimplifySchedulerJob(_injection.Configuration, assembly);
         var app = _injection.BuildApplication();
         app.UseSimplifySchedulerJob(assembly);

@@ -1,3 +1,4 @@
+using System.Collections.Specialized;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Quartz;
@@ -10,20 +11,26 @@ namespace Simplify.Scheduler.Job.Services
 {
     internal class SchedulerService : ISchedulerService
     {
-        private readonly IScheduler _scheduler;
+        private readonly IJobFactory _jobFactory;
         private readonly IConfiguration _configuration;
 
         public SchedulerService(IJobFactory jobFactory, IConfiguration configuration)
         {
-            _scheduler = new StdSchedulerFactory()
-                .GetScheduler()
-                .Result;
-            _scheduler.JobFactory = jobFactory;
+            _jobFactory = jobFactory;
             _configuration = configuration;
         }
 
         public void Start(Assembly assembly)
         {
+            var schedulerProps = new NameValueCollection();
+            schedulerProps["quartz.scheduler.instanceId"] = "AUTO";
+            schedulerProps["quartz.scheduler.instanceName"] = assembly.GetName().Name;
+
+            var _scheduler = new StdSchedulerFactory(schedulerProps)
+                .GetScheduler()
+                .Result;
+            _scheduler.JobFactory = _jobFactory;
+
             foreach (var job in assembly.GetJobTypeServices())
             {
                 if (job.GetJobTypeAttribute() is JobServiceAttribute jobAttr)

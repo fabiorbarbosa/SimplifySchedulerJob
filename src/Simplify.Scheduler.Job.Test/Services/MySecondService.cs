@@ -3,16 +3,16 @@ using Simplify.Scheduler.Job.Test.Interfaces;
 
 namespace Simplify.Scheduler.Job.Test.Services;
 
-public class MyLoggerService : IMyLoggerService
+public class MySecondService : IMySecondService
 {
-    private readonly ILogger<MyLoggerService> _logger;
+    private readonly ILogger<MySecondService> _logger;
 
-    public MyLoggerService(ILogger<MyLoggerService> logger)
+    public MySecondService(ILogger<MySecondService> logger)
         => _logger = logger;
 
     public async Task ExecuteJobAsync()
     {
         _logger.LogInformation("Execute job at: {0}", DateTime.Now);
-        await Task.Delay(5000);
+        await Task.Delay(10000);
     }
 }
