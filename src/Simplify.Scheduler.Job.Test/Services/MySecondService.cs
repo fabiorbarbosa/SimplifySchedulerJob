@@ -12,7 +12,7 @@ public class MySecondService : IMySecondService
 
     public async Task ExecuteJobAsync()
     {
-        _logger.LogInformation("Execute job at: {0}", DateTime.Now);
+        _logger.LogInformation("Execute job at: {JobDate}", DateTime.Now);
         await Task.Delay(10000);
     }
 }

@@ -1,7 +1,6 @@
-namespace Simplify.Scheduler.Job.Test.Models
-{
-    public class MyFirstConfig : JobOptions
-    {
+namespace Simplify.Scheduler.Job.Test.Models;
 
-    }
+public class MyFirstConfig : JobOptions
+{
+
 }

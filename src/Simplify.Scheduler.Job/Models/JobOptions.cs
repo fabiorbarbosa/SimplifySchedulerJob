@@ -1,7 +1,7 @@
-namespace Simplify.Scheduler.Job
+namespace Simplify.Scheduler.Job;
+
+public abstract class JobOptions
 {
-    public abstract class JobOptions
-    {
-        public string CronExpression { get; set; }
-    }
+    public string[] CronExpressions { get; set; }
+    public string TimeZoneId { get; set; }
 }

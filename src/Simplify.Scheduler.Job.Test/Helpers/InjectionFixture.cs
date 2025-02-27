@@ -12,7 +12,7 @@ public class InjectionFixture
     public InjectionFixture()
     {
         server = WebApplication.CreateBuilder([]);
-        var builder = new ConfigurationBuilder()
+        IConfigurationBuilder builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
         Configuration = builder.Build();
