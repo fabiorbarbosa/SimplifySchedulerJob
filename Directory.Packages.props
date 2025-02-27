@@ -1,0 +1,29 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Static code analysis -->
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.6.0.109712" />
+    <!-- Job -->
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+    <PackageVersion Include="Quartz.AspNetCore" Version="3.13.1" />
+    <PackageVersion Include="Quartz.RedisJobStore.Async" Version="1.0.0-preview-23" />
+    <PackageVersion Include="Quartz.Spi.MongoDbJobStore" Version="4.0.0-preview.3" />
+    <!-- Job.Test -->
+    <PackageVersion Include="coverlet.collector" Version="6.0.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.TestHost" Version="8.0.10" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageVersion Include="xunit" Version="2.5.3" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.3" />
+    <PackageVersion Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageVersion Include="Microsoft.AspNetCore.Routing" Version="2.3.0" />
+  </ItemGroup>
+
+  <!-- Removed duplicate FrameworkReference for 'Microsoft.AspNetCore.App' -->
+
+</Project>

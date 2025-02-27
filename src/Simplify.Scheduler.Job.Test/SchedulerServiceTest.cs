@@ -17,12 +17,11 @@ public class SchedulerServiceTest : IClassFixture<InjectionFixture>
     [Fact]
     public void Test1()
     {
-        var assembly = Assembly.GetAssembly(typeof(SchedulerServiceTest));
-        _injection.ServiceCollection.AddTransient(typeof(IMyFirstService), typeof(MyFirstService));
-        _injection.ServiceCollection.AddTransient(typeof(IMySecondService), typeof(MySecondService));
-        _injection.ServiceCollection.AddSimplifySchedulerJob(_injection.Configuration, assembly);
-        var app = _injection.BuildApplication();
-        app.UseSimplifySchedulerJob(assembly);
+        _injection.ServiceCollection.AddTransient<IMyFirstService, MyFirstService>();
+        _injection.ServiceCollection.AddTransient<IMySecondService, MySecondService>();
+        _injection.ServiceCollection.AddSimplifySchedulerJob(_injection.Configuration);
+        WebApplication app = _injection.BuildApplication();
+        app.UseSimplifySchedulerJob();
         app.Run();
         Assert.Empty(string.Empty);
     }

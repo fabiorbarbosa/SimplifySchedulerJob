@@ -13,7 +13,7 @@ public class MyFirstService : IMyFirstService
 
     public async Task ExecuteJobAsync()
     {
-        _logger.LogInformation("Execute job at: {0}", DateTime.Now);
+        _logger.LogInformation("Execute job at: {JobDate}", DateTime.Now);
         await Task.Delay(5000);
     }
 }

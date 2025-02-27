@@ -1,6 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplify.Scheduler.Job", "src\Simplify.Scheduler.Job\Simplify.Scheduler.Job.csproj", "{CAC87686-64AC-49B3-9DAD-D8CF32202646}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplify.Scheduler.Job.Test", "src\Simplify.Scheduler.Job.Test\Simplify.Scheduler.Job.Test.csproj", "{8DB6A3A6-D92B-4044-9AFF-6A2E623CC408}"
 EndProject

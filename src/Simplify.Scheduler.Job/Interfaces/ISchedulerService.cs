@@ -1,9 +1,8 @@
 using System.Reflection;
 
-namespace Simplify.Scheduler.Job.Interfaces
+namespace Simplify.Scheduler.Job.Interfaces;
+
+internal interface ISchedulerService
 {
-    internal interface ISchedulerService
-    {
-        void Start(Assembly assembly);
-    }
+    void Start(Assembly assembly);
 }

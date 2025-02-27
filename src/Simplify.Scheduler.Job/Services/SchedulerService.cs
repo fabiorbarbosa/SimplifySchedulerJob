@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Specialized;
+using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Quartz;
@@ -7,48 +10,73 @@ using Quartz.Spi;
 using Simplify.Scheduler.Job.Extensions;
 using Simplify.Scheduler.Job.Interfaces;
 
-namespace Simplify.Scheduler.Job.Services
+namespace Simplify.Scheduler.Job.Services;
+
+internal sealed class SchedulerService : ISchedulerService
 {
-    internal class SchedulerService : ISchedulerService
+    private readonly IJobFactory _jobFactory;
+    private readonly IConfiguration _configuration;
+
+    public SchedulerService(IJobFactory jobFactory, IConfiguration configuration)
     {
-        private readonly IJobFactory _jobFactory;
-        private readonly IConfiguration _configuration;
+        _jobFactory = jobFactory;
+        _configuration = configuration;
+    }
 
-        public SchedulerService(IJobFactory jobFactory, IConfiguration configuration)
+    public void Start(Assembly assembly)
+    {
+        var schedulerProps = new NameValueCollection
         {
-            _jobFactory = jobFactory;
-            _configuration = configuration;
-        }
+            ["quartz.scheduler.instanceId"] = "AUTO",
+            ["quartz.scheduler.instanceName"] = assembly.GetName().Name
+        };
 
-        public void Start(Assembly assembly)
+        IScheduler _scheduler = new StdSchedulerFactory(schedulerProps)
+            .GetScheduler()
+            .Result;
+        _scheduler.JobFactory = _jobFactory;
+
+        foreach (Type jobType in assembly.GetJobTypeServices())
         {
-            var schedulerProps = new NameValueCollection();
-            schedulerProps["quartz.scheduler.instanceId"] = "AUTO";
-            schedulerProps["quartz.scheduler.instanceName"] = assembly.GetName().Name;
-
-            var _scheduler = new StdSchedulerFactory(schedulerProps)
-                .GetScheduler()
-                .Result;
-            _scheduler.JobFactory = _jobFactory;
-
-            foreach (var job in assembly.GetJobTypeServices())
+            if (jobType.GetJobTypeAttribute() is JobServiceAttribute jobAttr)
             {
-                if (job.GetJobTypeAttribute() is JobServiceAttribute jobAttr)
+                if (_configuration
+                    .GetSection(jobAttr.TypeOptions.Name)
+                    .Get(jobAttr.TypeOptions) is not JobOptions options)
                 {
-                    var options = _configuration
-                        .GetSection(jobAttr.TypeOptions.Name)
-                        .Get(jobAttr.TypeOptions) as JobOptions;
-                    var jobService = job.GetJobDetail();
-                    var trigger = TriggerBuilder.Create()
-                        .StartNow()
-                        .WithCronSchedule(options.CronExpression)
+                    throw new InvalidOperationException($"JobOptions for {jobAttr.TypeOptions.Name} could not be found.");
+                }
+
+                if (jobType.GetJobDetail() is not IJobDetail jobService)
+                {
+                    throw new InvalidOperationException($"JobDetail for {jobType.Name} could not be found.");
+                }
+
+                _scheduler.AddJob(jobService, true);
+
+                foreach (var cronExpression in options.CronExpressions.Select((v, i) => new { Index = i, Value = v }))
+                {
+                    ITrigger trigger = TriggerBuilder
+                        .Create()
+                        .WithIdentity(
+                            string.Format(CultureInfo.InvariantCulture, "{0}_Trigger_{1}",
+                                jobService.Key.Name,
+                                cronExpression.Index),
+                            string.Format(CultureInfo.InvariantCulture, "Trigger_Group_{0}",
+                                jobService.Key.Name))
+                        .WithCronSchedule(cronExpression.Value)
+                        .ForJob(jobService)
+                        .StartAt(!string.IsNullOrWhiteSpace(options.TimeZoneId)
+                            ? TimeZoneInfo.ConvertTime(DateTime.Now,
+                                TimeZoneInfo.FindSystemTimeZoneById(options.TimeZoneId))
+                            : DateTime.Now)
                         .Build();
 
-                    _scheduler.ScheduleJob(jobService, trigger);
+                    _scheduler.ScheduleJob(trigger);
                 }
             }
-
-            _scheduler.Start();
         }
+
+        _scheduler.Start();
     }
 }
