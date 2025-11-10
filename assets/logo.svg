@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img"
+  aria-label="Simplify Scheduler Job logo">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f8dc0" />
+      <stop offset="100%" stop-color="#0b4e74" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#9af7d7" />
+      <stop offset="100%" stop-color="#4de1a5" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="64" fill="url(#bg)" />
+  <circle cx="256" cy="230" r="168" fill="none" stroke="#d5f4ff" stroke-width="20" stroke-dasharray="12 24"
+    stroke-linecap="round" opacity="0.6" />
+  <circle cx="256" cy="230" r="140" fill="none" stroke="#ffffff" stroke-width="12" />
+  <path d="M230 156v112l88 44" fill="none" stroke="#ffffff" stroke-width="18" stroke-linecap="round"
+    stroke-linejoin="round" />
+  <path d="M170 256l54 54 118-118" fill="none" stroke="url(#accent)" stroke-width="28" stroke-linecap="round"
+    stroke-linejoin="round" />
+  <text x="256" y="448" font-family="Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif" font-size="44"
+    text-anchor="middle" fill="#ffffff" font-weight="600" letter-spacing="2">
+    SIMPLIFY
+  </text>
+  <text x="256" y="472" font-family="Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif" font-size="24"
+    text-anchor="middle" fill="#9af7d7" letter-spacing="6">
+    SCHEDULER
+  </text>
+</svg>
