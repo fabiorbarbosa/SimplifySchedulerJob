@@ -4,7 +4,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>Simplify.Scheduler.Job</PackageId>
-    <VersionPrefix>1.0.0</VersionPrefix>
+    <VersionPrefix>1.0.1</VersionPrefix>
     <Authors>fabiorbarbosa</Authors>
     <Company>Simplify</Company>
     <Product>Simplify Scheduler Job</Product>
@@ -15,6 +15,7 @@
     <RepositoryUrl>https://github.com/fabiorbarbosa/SimplifySchedulerJob</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>logo.png</PackageIcon>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -28,6 +29,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\\..\\README.md" Pack="true" PackagePath="\" Link="README.md" />
+    <None Include="..\\..\\assets\\logo.png" Pack="true" PackagePath="\" Link="logo.png" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
