@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Quartz.Spi;
@@ -9,14 +10,17 @@ using Simplify.Scheduler.Job.Services;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
+    /// <summary>
+    /// Dependency injection extensions that register Simplify Scheduler services.
+    /// </summary>
     public static class SimplifySchedulerJobDIExtension
     {
         /// <summary>
-        /// Add dependencies injection service of SimplifySchedulerJob to the
-        /// specified <see cref="IServiceCollection"/>.
+        /// Adds all SimplifySchedulerJob dependencies to the given <see cref="IServiceCollection"/>.
         /// </summary>
-        /// <param name="services">The <see cref="IServiceCollection"/> to add the service to.</param>
-        /// <param name="assembly">The <see cref="Assembly"/> of service to be read to register jobs.</param>
+        /// <param name="services">Collection where the infrastructure services will be registered.</param>
+        /// <param name="configuration">Application configuration used to bind the job options.</param>
+        /// <param name="assembly">Assembly scanned to find job interfaces decorated with <see cref="JobServiceAttribute"/>.</param>
         /// <returns> The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
         public static IServiceCollection AddSimplifySchedulerJob(this IServiceCollection services
             , IConfiguration configuration, Assembly assembly)
@@ -37,9 +41,32 @@ namespace Microsoft.Extensions.DependencyInjection
             return services;
         }
 
-        private static IServiceCollection AddConfigureOptions<T>(this IServiceCollection services
+        /// <summary>
+        /// Binds the concrete <see cref="JobOptions"/> type to its configuration section at runtime.
+        /// </summary>
+        /// <param name="services">Service collection receiving the configuration binding.</param>
+        /// <param name="configuration">Configuration root used to resolve the section.</param>
+        /// <param name="option">Concrete type derived from <see cref="JobOptions"/>.</param>
+        private static IServiceCollection AddConfigureOptions(this IServiceCollection services
             , IConfiguration configuration
-            , T option) where T : Type
-                => services.Configure<T>(opt => configuration.GetSection(option.Name));
+            , Type option)
+        {
+            if (option == null) throw new ArgumentNullException(nameof(option));
+
+            var section = configuration.GetSection(option.Name);
+            var configureMethod = typeof(OptionsConfigurationServiceCollectionExtensions)
+                .GetMethods(BindingFlags.Public | BindingFlags.Static)
+                .First(m =>
+                    m.Name == nameof(OptionsConfigurationServiceCollectionExtensions.Configure)
+                    && m.IsGenericMethodDefinition
+                    && m.GetParameters().Length == 2
+                    && m.GetParameters()[1].ParameterType == typeof(IConfiguration));
+
+            configureMethod
+                .MakeGenericMethod(option)
+                .Invoke(null, new object[] { services, section });
+
+            return services;
+        }
     }
 }

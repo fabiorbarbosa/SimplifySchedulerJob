@@ -81,7 +81,7 @@ In dependency injection, register the created service and add the `SimplifySched
 services.AddTransient(typeof(IMyJobService), typeof(MyJobService));
 
 // REGISTER SIMPLIFYSCHEDULERJOB DEPENDENCIES
-services.AddSimplifySchedulerJob(assembly);
+services.AddSimplifySchedulerJob(builder.Configuration, assembly);
 ...
 ```
 

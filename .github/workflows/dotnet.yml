@@ -1,0 +1,53 @@
+name: .NET CI
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - v*
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-test-pack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+
+      - name: Restore
+        run: dotnet restore Simplify.Scheduler.Job.sln
+
+      - name: Build
+        run: dotnet build Simplify.Scheduler.Job.sln -c Release --no-restore
+
+      - name: Test
+        run: dotnet test Simplify.Scheduler.Job.sln -c Release --no-build --collect:"XPlat Code Coverage"
+
+      - name: Pack
+        run: dotnet pack src/Simplify.Scheduler.Job/Simplify.Scheduler.Job.csproj -c Release --no-build -o ./artifacts
+
+      - name: Upload NuGet artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: simplify-scheduler-job-packages
+          path: artifacts/**
+          if-no-files-found: error
+
+      - name: Push to NuGet
+        if: github.event_name == 'push' && startswith(github.ref, 'refs/tags/v')
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: |
+          dotnet nuget push "artifacts/*.nupkg" \
+            --api-key "$NUGET_API_KEY" \
+            --source https://api.nuget.org/v3/index.json \
+            --skip-duplicate

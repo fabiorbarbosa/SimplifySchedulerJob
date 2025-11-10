@@ -3,24 +3,20 @@ using System;
 namespace Simplify.Scheduler.Job
 {
     /// <summary>
-    /// Attribute to configure the cron expression.
+    /// Declares configuration metadata for a Simplify Scheduler job interface.
     /// </summary>
-    /// <remarks>
-    /// Use cron expression to execute the 'IJobService.ExecuteJobAsync' method.
-    /// </remarks>
-    /// <param name="cronJobSchedule">Cron Expression</param>
     [AttributeUsage(AttributeTargets.Interface, AllowMultiple = true)]
     public class JobServiceAttribute : Attribute
     {
         internal readonly Type TypeOptions;
 
         /// <summary>
-        /// Attribute to configure the cron expression.
+        /// Tags a job interface with the options type that supplies its configuration.
         /// </summary>
         /// <remarks>
-        /// Use cron expression to execute the 'IJobService.ExecuteJobAsync' method.
+        /// The options type must inherit <see cref="JobOptions"/> and will be bound to configuration sections bearing the same name.
         /// </remarks>
-        /// <param name="typeOptions"></param>
+        /// <param name="typeOptions">Concrete <see cref="JobOptions"/> type that holds the cron expression and any extra parameters.</param>
         public JobServiceAttribute(Type typeOptions)
             => TypeOptions = typeOptions;
     }
