@@ -1,6 +1,10 @@
 
 # SimplifySchedulerJob
 
+<p align="center">
+  <img src="assets/logo.png" alt="SimplifySchedulerJob logo" width="200" />
+</p>
+
 Component to facilitate the use of Quartz.NET, and eliminating the complex JobFactory configuration.
 
 ## Compatibility
