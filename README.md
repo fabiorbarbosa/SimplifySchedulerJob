@@ -22,13 +22,13 @@ SimplifySchedulerJob supports .NET 6.0/7.0/8.0 and .NET Standard 2.0.
 With .NET CLI
 
 ```bash
-  dotnet add package SimplifySchedulerJob
+  dotnet add package Simplify.Scheduler.Job
 ```
 
 Or with Nuget CLI
 
 ```bash
-  NuGet\Install-Package SimplifySchedulerJob
+  NuGet\Install-Package Simplify.Scheduler.Job
 ```
 
 ## Usage/Examples
