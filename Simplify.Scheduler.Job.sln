@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplify.Scheduler.Job", "src\Simplify.Scheduler.Job\Simplify.Scheduler.Job.csproj", "{CAC87686-64AC-49B3-9DAD-D8CF32202646}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplify.Scheduler.Job.Test", "src\Simplify.Scheduler.Job.Test\Simplify.Scheduler.Job.Test.csproj", "{8DB6A3A6-D92B-4044-9AFF-6A2E623CC408}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simplify.Scheduler.Job.Tests", "tests\Simplify.Scheduler.Job.Tests\Simplify.Scheduler.Job.Tests.csproj", "{8DB6A3A6-D92B-4044-9AFF-6A2E623CC408}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

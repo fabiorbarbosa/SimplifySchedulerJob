@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Simplify.Scheduler.Job.Test.Helpers;
+namespace Simplify.Scheduler.Job.Tests.Helpers;
 
 public class InjectionFixture
 {

@@ -7,7 +7,7 @@ Atuar como Engenheiro(a) Sênior .NET/Quartz garantindo que o pacote `Simplify.S
 - `.NET SDK` com multi-target (`netstandard2.0`, `net6.0`, `net7.0`, `net8.0`) – `src/Simplify.Scheduler.Job/Simplify.Scheduler.Job.csproj`.
 - `Quartz.AspNetCore 3.13.1` e `Quartz` puro para agendamentos.
 - `Microsoft.Extensions.*` (Configuration, DependencyInjection, Logging) como base de DI e binding.
-- `xUnit 2.5.3`, `Microsoft.NET.Test.Sdk 17.8.0`, `coverlet.collector 6.0.0` para testes/coverage (`src/Simplify.Scheduler.Job.Test/Simplify.Scheduler.Job.Test.csproj`).
+- `xUnit 2.5.3`, `Microsoft.NET.Test.Sdk 17.8.0`, `coverlet.collector 6.0.0` para testes/coverage (`src/Simplify.Scheduler.Job.Test/Simplify.Scheduler.Job.Tests.csproj`).
 - `Microsoft.AspNetCore.TestHost` e `WebApplicationBuilder` usados nos testes de integração.
 - Build orquestrado via `Simplify.Scheduler.Job.sln` na raiz.
 

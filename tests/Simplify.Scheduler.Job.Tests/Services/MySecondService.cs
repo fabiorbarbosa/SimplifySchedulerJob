@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
-using Simplify.Scheduler.Job.Test.Interfaces;
+using Simplify.Scheduler.Job.Tests.Interfaces;
 
-namespace Simplify.Scheduler.Job.Test.Services;
+namespace Simplify.Scheduler.Job.Tests.Services;
 
 public class MySecondService : IMySecondService
 {

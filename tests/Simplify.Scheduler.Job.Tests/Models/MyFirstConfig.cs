@@ -1,4 +1,4 @@
-namespace Simplify.Scheduler.Job.Test.Models
+namespace Simplify.Scheduler.Job.Tests.Models
 {
     public class MyFirstConfig : JobOptions
     {

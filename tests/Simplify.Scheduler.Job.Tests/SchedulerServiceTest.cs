@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Simplify.Scheduler.Job.Test.Helpers;
-using Simplify.Scheduler.Job.Test.Interfaces;
-using Simplify.Scheduler.Job.Test.Models;
-using Simplify.Scheduler.Job.Test.Services;
+using Simplify.Scheduler.Job.Tests.Helpers;
+using Simplify.Scheduler.Job.Tests.Interfaces;
+using Simplify.Scheduler.Job.Tests.Models;
+using Simplify.Scheduler.Job.Tests.Services;
 
-namespace Simplify.Scheduler.Job.Test;
+namespace Simplify.Scheduler.Job.Tests;
 
 public class SchedulerServiceTest(InjectionFixture injection)
     : IClassFixture<InjectionFixture>

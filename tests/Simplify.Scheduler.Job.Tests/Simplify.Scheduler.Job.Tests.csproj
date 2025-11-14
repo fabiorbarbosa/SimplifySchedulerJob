@@ -19,7 +19,7 @@
     <Using Include="Xunit" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Simplify.Scheduler.Job\Simplify.Scheduler.Job.csproj" />
+    <ProjectReference Include="..\..\src\Simplify.Scheduler.Job\Simplify.Scheduler.Job.csproj" />
   </ItemGroup>
   <Target Name="CopyAppSettings" AfterTargets="AfterBuild">
     <Copy SourceFiles="appSettings.json" DestinationFolder="$(OutDir)" />
